@@ -8,9 +8,10 @@ var v = 20;
 var limit = 0;
 var windowHeight = 0;
 var started = false;
-var mov = 100;
-var movC = 100;
+var mov = 1920;
+var movC = 1920;
 var speed = 0;
+var recorrido = 0.2;
 
 // Main Activity
 
@@ -65,49 +66,44 @@ function move() {
 
 //christian
 
-function cactusMovement() {
 
-        //velocidad
-        document.getElementById("cactus").style.left = x + "%";
-
-    
-}
 
 function pajaroMovement() {
-    if(document.getElementById("pajaro") != null){
-    mov = mov-0.2;
-    document.getElementById("pajaro").style.left = mov + "%";
+    if (document.getElementById("pajaro") != null) {
+        mov = mov - 5;
+        document.getElementById("pajaro").style.left = mov + "px";
         //velocidad
         //document.getElementById("pajaro").style.left = x + "%";
         //yield sleep(200);
         //sleep(200);
         //setTimeout(200);
-   
-    var element = document.getElementById('pajaro'),
-    style = window.getComputedStyle(element),
-    left = style.getPropertyValue('left');
-    //console.log(left);
 
-    eliminarEnemigoPajaro();
+        var element = document.getElementById('pajaro'),
+            style = window.getComputedStyle(element),
+            left = style.getPropertyValue('left');
+        //console.log(left);
+
+        eliminarEnemigoPajaro();
+
     }
 }
 
 function cactusMovement() {
-    if(document.getElementById("cactus") != null){
-    movC = movC-0.2;
-    document.getElementById("cactus").style.left = movC + "%";
+    if (document.getElementById("cactus") != null) {
+        movC = movC - 5;
+        document.getElementById("cactus").style.left = movC + "px";
         //velocidad
         //document.getElementById("pajaro").style.left = x + "%";
         //yield sleep(200);
         //sleep(200);
         //setTimeout(200);
-   
-    var element = document.getElementById('cactus'),
-    style = window.getComputedStyle(element),
-    left = style.getPropertyValue('left');
-    //console.log(left);
 
-    eliminarEnemigoCactus();
+        var element = document.getElementById('cactus'),
+            style = window.getComputedStyle(element),
+            left = style.getPropertyValue('left');
+        //console.log(left);
+
+        eliminarEnemigoCactus();
     }
 }
 
@@ -126,12 +122,12 @@ function elegirObstaculo() {
 }
 
 function eliminarEnemigoPajaro() {
-    
+
     var elemento = document.getElementById("pajaro");
     var padre = elemento.parentElement;
     var element = document.getElementById('pajaro'),
-    style = window.getComputedStyle(element),
-    left = style.getPropertyValue('left');
+        style = window.getComputedStyle(element),
+        left = style.getPropertyValue('left');
     //console.log(left);
 
     if (left == (0 + "px")) {
@@ -140,49 +136,53 @@ function eliminarEnemigoPajaro() {
         //crearEnemigosPajaro();
         //resetPosicion();
         elegirObstaculo();
+        recorrido = recorrido + 0.21;
     }
 }
 
 function eliminarEnemigoCactus() {
-    
+
     var elemento = document.getElementById("cactus");
     var padre = elemento.parentElement;
     var element = document.getElementById('cactus'),
-    style = window.getComputedStyle(element),
-    left = style.getPropertyValue('left');
+        style = window.getComputedStyle(element),
+        left = style.getPropertyValue('left');
     //console.log(left);
+    var dec = 0;
 
-    if (left == (0 + "px")) {
-        console.log("entrado");
+    if (left == (dec + "px")) {
+        console.log(left);
         padre.removeChild(elemento);
         //crearEnemigosCactus();
         //resetPosicion();
         elegirObstaculo();
+        recorrido = recorrido + 0.21;
     }
+
 }
 
 
-function crearEnemigosPajaro(){
+function crearEnemigosPajaro() {
     var z = document.createElement("div");
     z.setAttribute("type", "div");
     z.setAttribute("class", "pajaro");
     z.setAttribute("id", "pajaro");
     document.getElementById("sky").appendChild(z);
     //console.log("creado");
-    mov=100;
-    document.getElementById("pajaro").style.left = mov + "%";
+    mov = 1920;
+    document.getElementById("pajaro").style.left = mov + "px";
     //console.log(mov);
 }
 
-function crearEnemigosCactus(){
+function crearEnemigosCactus() {
     var z = document.createElement("div");
     z.setAttribute("type", "div");
     z.setAttribute("class", "cactus");
     z.setAttribute("id", "cactus");
     document.getElementById("sky").appendChild(z);
     console.log("creado");
-    movC=100;
-    document.getElementById("cactus").style.left = movC + "%";
+    movC = 1920;
+    document.getElementById("cactus").style.left = movC + "px";
     console.log(movC);
 }
 

@@ -1,0 +1,53 @@
+body,html {
+	height:100%;
+	padding:0px;
+	margin:0px;
+}
+
+/** Cielo **/
+#sky {
+
+    height: 70%;
+    background-color: aqua;
+
+}
+
+/** Suelo **/
+#ground {
+
+    height: 30%;
+    background-color: rgb(202, 132, 39);
+
+}
+
+/** Dinosaurio **/
+#dino {
+
+    height: 100px;
+    width: 50px;
+    background-color: black;
+    position: relative;
+    margin-left: 20%;
+
+}
+
+/** Christian **/
+.cactus{
+    position:fixed;
+    background-color: red;
+    z-index:20;
+    left:100%;
+    bottom:30%;
+    height: 65px;
+    width: 50px;
+}
+
+.pajaro{
+    position:fixed;
+    background-color: purple;
+    z-index:20;
+    left:100%;
+    bottom:36%;
+    height: 50px;
+    width: 50px;
+}

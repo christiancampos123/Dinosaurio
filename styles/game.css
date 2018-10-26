@@ -27,22 +27,22 @@ body,html {
     width: 50px;
     background-color: black;
     position: relative;
-    margin-left: 20%;
+    left: 20%;
 
 }
 
 /** Christian **/
-.cactus{
+#cactus{
     position:fixed;
-    background-color: red;
     z-index:20;
     left:100%;
     bottom:30%;
     height: 65px;
     width: 50px;
+    background-image: url(../img/cactus.png);
 }
 
-.pajaro{
+#pajaro{
     position:fixed;
     background-color: purple;
     z-index:20;

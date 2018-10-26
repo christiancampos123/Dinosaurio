@@ -9,6 +9,9 @@ var jumping = false;
 var mov = 0;
 var speed = 10;
 var obstacleInterval = null;
+var puntuacion = 0;
+var punt = 100; // Timer de la puntuacion
+var intervaloP = null;
 
 // Main Activity
 $(document).ready(function () {
@@ -26,7 +29,8 @@ $(document).ready(function () {
 
     console.log("Pruebas say : " + $("#dino").attr("id"));
 
-    // Preubas
+    // Pruebas
+    actualizarPuntuacion();
 
 });
 
@@ -41,7 +45,7 @@ function startJump() {
 // Pausar el juego
 function stopJump() {
     clearInterval(timer);
-    jumping = false; 
+    jumping = false;
 }
 
 // Calcular pixel del suelo
@@ -58,12 +62,12 @@ function setElementFixedToGround(id, mod) {
 // Saltar
 function jump() {
     v -= a * dt;
-    if (h >= 0) { 
-        h += v * dt; 
-    } else { 
-        h = 0; 
-        v = 20; 
-        stopJump(); 
+    if (h >= 0) {
+        h += v * dt;
+    } else {
+        h = 0;
+        v = 20;
+        stopJump();
     }
     setElementFixedToGround("dino", h);
 }
@@ -96,7 +100,7 @@ function enemmyMovement(type) {
         var dino = document.getElementById("dino");
         mov -= 5;
         document.getElementById(type).style.left = mov + "px";
-        if (overlaps(ennemy, dino)) { console.log("enemmyMovement() say : Has perdido."); }
+        if (overlaps(ennemy, dino)) { stopGame(); }
         if (-50 >= mov) { deleteEnemmy(type); }
     }
 }
@@ -114,31 +118,53 @@ function deleteEnemmy(type) {
 // Detector de colisiones (Devuelve true si colisionan)
 var overlaps = (function () {
 
-    function getPositions( elem ) {
+    function getPositions(elem) {
         var pos, width, height;
-        pos = $( elem ).position();
-        width = $( elem ).width();
-        height = $( elem ).height();
-        return [ [ pos.left, pos.left + width ], [ pos.top, pos.top + height ] ];
+        pos = $(elem).position();
+        width = $(elem).width();
+        height = $(elem).height();
+        return [[pos.left, pos.left + width], [pos.top, pos.top + height]];
     }
 
-    function comparePositions( p1, p2 ) {
+    function comparePositions(p1, p2) {
         var r1 = p1[0] < p2[0] ? p1 : p2;
         var r2 = p1[0] < p2[0] ? p2 : p1;
         return r1[1] > r2[0] || r1[0] === r2[0];
     }
 
-    return function ( a, b ) {
-        var pos1 = getPositions( a );
-        var pos2 = getPositions( b );
-        return comparePositions( pos1[0], pos2[0] ) && comparePositions( pos1[1], pos2[1] );
+    return function (a, b) {
+        var pos1 = getPositions(a);
+        var pos2 = getPositions(b);
+        return comparePositions(pos1[0], pos2[0]) && comparePositions(pos1[1], pos2[1]);
     };
-    
+
 })();
 
-// Pruebaaaaa
+// Puntuación 
 
-// Prueba 2
+function actualizarPuntuacion() {
+    intervaloP = setInterval(function () {
+        document.getElementById("punt").innerHTML = puntuacion++;
+        if (puntuacion % 200 == 0) {
+            if (puntuacion % 400 == 0) {
+                $("#sky").css("background-color", "aqua");
+                $("#dino").css("background-color", "black");
+            }
+            else {
+                $("#sky").css("background-color", "black");
+                $("#dino").css("background-color", "white");
+            }
+        }
+    }, punt, "JavaScript");
+}
+
+function stopGame() {
+    console.log("enemmyMovement() say : Has perdido.");
+    clearInterval(intervaloP);
+    jumping = true;
+    clearInterval(obstacleInterval);
+    clearInterval(timer);
+}
 
 // Christian Cosas que no pero si 
 /*

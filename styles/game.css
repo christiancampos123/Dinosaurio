@@ -51,3 +51,14 @@ body,html {
     height: 50px;
     width: 50px;
 }
+
+#puntuacion{
+    top:5%;
+    right:5%;
+    height:80px;
+    width:240px;
+    background-color: blueviolet;
+    z-index: 90;
+    position:fixed;
+    font-size:300%;
+}

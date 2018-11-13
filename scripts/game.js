@@ -9,11 +9,12 @@ var jumping = false;
 var mov = 0;
 var speed = 10;
 var obstacleInterval = null;
-var puntuacion = 0;
-var punt = 100; // Timer de la puntuacion
-var intervaloP = null;
-var vidas = 3;
-var vidaInterval=null;
+var punctuation = 0;
+var punctuationInterval = 100; // Timer de la puntuacion
+var backgroundInterval = null;
+var lifes = 3;
+var lifeCount;
+var lifeInterval=null;
 
 // Main Activity
 $(document).ready(function () {
@@ -105,13 +106,7 @@ function choseLife(){
 }
 
 function newLife(type) {
-    var enemmy = document.createElement("div");
-    enemmy.setAttribute("type", "div");
-    enemmy.setAttribute("id", type);
-    document.getElementById("sky").appendChild(enemmy);
-    mov = $(sky).width();
-    document.getElementById(type).style.left = mov + "px";
-    //vidaInterval = setInterval(function () {  },);
+
 }
 
 // Crear enemgio
@@ -133,13 +128,13 @@ function enemmyMovement(type) {
         mov -= 5;
         document.getElementById(type).style.left = mov + "px";
         if (overlaps(ennemy, dino)) {
-            if (vidas == 0) {
+            if (lifes == 0) {
                 stopGame();
             } else {
-                vidas--;
+                lifes--;
                 deleteEnemmy(type);
-                var life = document.getElementById("life" + (vidas));
-                console.log(vidas)
+                var life = document.getElementById("life" + (lifes));
+                console.log(lifes)
                 
                 var padre=life.parentElement;
                 padre.removeChild(life);
@@ -190,10 +185,10 @@ var overlaps = (function () {
 
 // Puntuación 
 function actualizarPuntuacion() {
-    intervaloP = setInterval(function () {
-        document.getElementById("punt").innerHTML = puntuacion++;
-        if (puntuacion % 200 == 0) {
-            if (puntuacion % 400 == 0) {
+    backgroundInterval = setInterval(function () {
+        document.getElementById("punt").innerHTML = punctuation++;
+        if (punctuation % 200 == 0) {
+            if (punctuation % 400 == 0) {
                 $("#sky").css("background-color", "aqua");
                 $("#dino").css("background-color", "black");
             }
@@ -202,12 +197,12 @@ function actualizarPuntuacion() {
                 $("#dino").css("background-color", "white");
             }
         }
-    }, punt, "JavaScript");
+    }, punctuationInterval, "JavaScript");
 }
 
 function stopGame() {
     console.log("enemmyMovement() say : Has perdido.");
-    clearInterval(intervaloP);
+    clearInterval(backgroundInterval);
     jumping = true;
     clearInterval(obstacleInterval);
     clearInterval(timer);
@@ -218,12 +213,12 @@ function stopGame() {
 
 
 function MostrarVidas() {
-    for(var contVidas=0;contVidas < vidas; contVidas++) {
+    for(lifeCount=0;lifeCount < lifes; lifeCount++) {
         var vida = document.createElement("div");
         vida.setAttribute("type", "div");
-        vida.setAttribute("id", "life" + contVidas);
+        vida.setAttribute("id", "life" + lifeCount);
         vida.setAttribute("class", "life");
-        $(vida).css("left" , contVidas * 56 + "px");
+        $(vida).css("left" , lifeCount * 56 + "px");
         document.getElementById("vidas").appendChild(vida);
     }
 }

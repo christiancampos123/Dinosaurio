@@ -33,6 +33,7 @@ body,html {
 
 /** Christian **/
 #cactus{
+    background-color: aliceblue;
     position:fixed;
     z-index:20;
     left:100%;
@@ -42,14 +43,48 @@ body,html {
     background-image: url(../img/cactus.png);
 }
 
-#pajaro{
+#pinchos{
+    background-color: aliceblue;
     position:fixed;
-    background-color: purple;
+    z-index:20;
+    left:100%;
+    bottom:30%;
+    height: 30px;
+    width: 242px;
+    background-image: url(../img/pinchos.png);
+}
+
+#pajaro{
+    background-color: aliceblue;
+    position:fixed;
     z-index:20;
     left:100%;
     bottom:36%;
     height: 50px;
     width: 50px;
+    background-image: url(../img/pajaro.gif);
+}
+
+#lanza{
+    background-color: aliceblue;
+    position:fixed;
+    z-index:20;
+    left:100%;
+    bottom:30%;
+    height: 115px;
+    width: 20px;
+    background-image: url(../img/lanza.png);
+}
+
+#vidaG{
+    background-color: aliceblue;
+    position:fixed;
+    z-index:20;
+    left:100%;
+    bottom:30%;
+    height: 44px;
+    width: 52px;
+    background-image: url(../img/vida.png);
 }
 
 #puntuacion{
@@ -61,4 +96,24 @@ body,html {
     z-index: 90;
     position:fixed;
     font-size:300%;
+}
+
+#vidas{
+    top:5%;
+    right:80%;
+    height:80px;
+    width:240px;
+    background-color: blue;
+    z-index: 90;
+    position:fixed;
+    font-size:300%;    
+}
+
+.life{
+    background-color: aliceblue;
+    position:fixed;
+    z-index:20;
+    height: 44px;
+    width: 52px;
+    background-image: url(../img/vida.png);
 }

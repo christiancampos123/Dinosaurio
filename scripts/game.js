@@ -12,6 +12,8 @@ var obstacleInterval = null;
 var puntuacion = 0;
 var punt = 100; // Timer de la puntuacion
 var intervaloP = null;
+var vidas = 3;
+var vidaInterval=null;
 
 // Main Activity
 $(document).ready(function () {
@@ -22,6 +24,9 @@ $(document).ready(function () {
     // Sacar un obstaculo al azar
     choseObstacle();
 
+    // sacar vida.
+    choseLife();
+
     // Saltar al pulsar una tecla
     document.onkeydown = function () { if (jumping == false) { startJump(); } };
 
@@ -31,6 +36,9 @@ $(document).ready(function () {
 
     // Pruebas
     actualizarPuntuacion();
+
+    //Mostrar Vidas
+    MostrarVidas();
 
 });
 
@@ -74,12 +82,36 @@ function jump() {
 
 // Elegir obstaculo aleatorio
 function choseObstacle() {
+    var randomNum = Math.random();
     // Random number generator (0-1)
-    if (Math.random() <= 0.5) { // Sale pajaro
+    if (randomNum <= 0.33) { // Sale pajaro
         newObstacle("pajaro");
-    } else {                    // Sale Cactus
+    }
+    if (randomNum > 0.33 && randomNum < 0.66) { // Sale cactus
         newObstacle("cactus");
     }
+    if (randomNum >= 0.66 && randomNum < 0.90) { // Salen Pinchos
+        newObstacle("pinchos");
+    }
+    if (randomNum >= 0.90) { // Salen Pinchos
+        newObstacle("lanza");
+    }
+
+}
+
+function choseLife(){
+    //timer
+    newLife("vidaG");
+}
+
+function newLife(type) {
+    var enemmy = document.createElement("div");
+    enemmy.setAttribute("type", "div");
+    enemmy.setAttribute("id", type);
+    document.getElementById("sky").appendChild(enemmy);
+    mov = $(sky).width();
+    document.getElementById(type).style.left = mov + "px";
+    //vidaInterval = setInterval(function () {  },);
 }
 
 // Crear enemgio
@@ -100,8 +132,24 @@ function enemmyMovement(type) {
         var dino = document.getElementById("dino");
         mov -= 5;
         document.getElementById(type).style.left = mov + "px";
-        if (overlaps(ennemy, dino)) { stopGame(); }
-        if (-50 >= mov) { deleteEnemmy(type); }
+        if (overlaps(ennemy, dino)) {
+            if (vidas == 0) {
+                stopGame();
+            } else {
+                vidas--;
+                deleteEnemmy(type);
+                var life = document.getElementById("life" + (vidas));
+                console.log(vidas)
+                
+                var padre=life.parentElement;
+                padre.removeChild(life);
+            }
+        }
+        if (type == "cactus" || type == "pajaro") {
+            if (-50 >= mov) { deleteEnemmy(type); }
+        } else {
+            if (-250 >= mov) { deleteEnemmy(type); }
+        }
     }
 }
 
@@ -141,7 +189,6 @@ var overlaps = (function () {
 })();
 
 // Puntuación 
-
 function actualizarPuntuacion() {
     intervaloP = setInterval(function () {
         document.getElementById("punt").innerHTML = puntuacion++;
@@ -164,6 +211,21 @@ function stopGame() {
     jumping = true;
     clearInterval(obstacleInterval);
     clearInterval(timer);
+}
+
+
+//Christian
+
+
+function MostrarVidas() {
+    for(var contVidas=0;contVidas < vidas; contVidas++) {
+        var vida = document.createElement("div");
+        vida.setAttribute("type", "div");
+        vida.setAttribute("id", "life" + contVidas);
+        vida.setAttribute("class", "life");
+        $(vida).css("left" , contVidas * 56 + "px");
+        document.getElementById("vidas").appendChild(vida);
+    }
 }
 
 // Christian Cosas que no pero si 
